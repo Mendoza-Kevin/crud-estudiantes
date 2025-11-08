@@ -1,4 +1,4 @@
-const tabla = document.getElementById("tablaEStudiantes");
+const tabla = document.getElementById("tablaEstudiantes");
 const form = document.getElementById("formEstudiante");
 const idInput = document.getElementById("id");
 const nombreInput = document.getElementById("nombre");
@@ -7,7 +7,7 @@ const edadInput = document.getElementById("edad");
 
 async function obtenerEstudiantes() {
     try {
-        const response = await fetch(`https://dsi-strapi.onrender.com/api/estudiantes`);
+        const response = await fetch(`http://localhost:1337/api/estudiantes`);
         if(!response.ok) {
             throw new Error('Netwowk response was not ok');
      
@@ -45,6 +45,7 @@ function cargarTabla(estudiantes) {
   });
 }
 
+
 // ---- Lógica para poblar el formulario al editar ----
 tabla.addEventListener('click', (e) => {
   if (e.target.classList.contains('btn-editar')) {
@@ -70,7 +71,7 @@ init();
 
 async function agregarEstudiante(estudiante) {
   try {
-    const response = await fetch('https://dsi-strapi.onrender.com/api/estudiantes', {
+    const response = await fetch('http://localhost:1337/api/estudiantes', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -113,7 +114,7 @@ form.addEventListener('submit', async (e) => {
 
 async function actualizarEstudiante(docId, estudiante) {
   try {
-    const response = await fetch(`https://dsi-strapi.onrender.com/api/estudiantes/${docId}`, {
+    const response = await fetch(`http://localhost:1337/api/estudiantes/${docId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ data: estudiante })
@@ -154,7 +155,7 @@ form.addEventListener('submit', async (e) => {
 
 async function eliminarEstudiante(docId) {
   try {
-    const response = await fetch(`https://dsi-strapi.onrender.com/api/estudiantes/${docId}`, {
+    const response = await fetch(`http://localhost:1337/api/estudiantes/${docId}`, {
       method: 'DELETE',
     });
     if (!response.ok) throw new Error('Error al eliminar el estudiante.');
