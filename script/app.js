@@ -93,40 +93,6 @@ async function agregarEstudiante(estudiante) {
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
-
-  const nombre = nombreInput.value.trim();
-  const apellido = apellidoInput.value.trim();
-  const edad = edadInput.value.trim();
-
-  if (!nombre || !apellido || !edad) {
-    alert('Por favor, complete todos los campos (Nombre, Apellido, Edad).');
-    return;
-  }
-
-  const nuevoEstudiante = {
-    Nombre: nombre,
-    Apellido: apellido,
-    edad: parseInt(edad, 10)
-  };
-
-  await agregarEstudiante(nuevoEstudiante);
-});
-
-async function actualizarEstudiante(docId, estudiante) {
-  try {
-    const response = await fetch(`http://localhost:1337/api/estudiantes/${docId}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ data: estudiante })
-    });
-    if (!response.ok) throw new Error('Error al actualizar el estudiante.');
-  } catch (error) {
-    console.error('Error en actualizarEstudiante:', error);
-  }
-}
-
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
   const docId = idInput.value;
   const nombre = nombreInput.value.trim();
   const apellido = apellidoInput.value.trim();
@@ -152,6 +118,19 @@ form.addEventListener('submit', async (e) => {
   form.reset();
   await init();
 });
+
+async function actualizarEstudiante(docId, estudiante) {
+  try {
+    const response = await fetch(`http://localhost:1337/api/estudiantes/${docId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ data: estudiante })
+    });
+    if (!response.ok) throw new Error('Error al actualizar el estudiante.');
+  } catch (error) {
+    console.error('Error en actualizarEstudiante:', error);
+  }
+}
 
 async function eliminarEstudiante(docId) {
   try {
